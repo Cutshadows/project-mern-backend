@@ -17,6 +17,9 @@ const users=require('./routes/users');
 app.use('/api/users', users);
 const auth=require('./routes/auth');
 app.use('/api/auth', auth);
+const projects=require('./routes/projects');
+app.use('/api/projects', projects);
+
 
 
 app.listen(PORT, ()=>{
