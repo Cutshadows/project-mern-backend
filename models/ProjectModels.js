@@ -1,7 +1,7 @@
 const mongoose=require('mongoose');
 
 const ProjectSchema=mongoose.Schema({
-    ProjectName:{
+    projectName:{
         type:String,
         required: true,
         trim:true

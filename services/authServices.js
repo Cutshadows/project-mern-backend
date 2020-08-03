@@ -45,3 +45,15 @@ exports.authUser=async(req, res)=>{
     }
 
 }
+//Get user authenticated
+exports.authenticatedUser=async(req, res)=>{
+    try {
+        const users=await User.findById(req.user.id);
+        res.json({
+            users
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({msg:'Hubo un error'});
+    }
+}

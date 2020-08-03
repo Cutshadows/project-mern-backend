@@ -1,13 +1,14 @@
 const express=require('express');
 const connectDB=require('./server/db');
-
+const cors=require('cors');
 const app=express();
 
 //conectar a la bd
 connectDB();
 
 //use bodyparser
-app.use(express.json({extended:true}))
+app.use(cors());
+app.use(express.json({extended:true}));
 //puerto de la app
 const PORT=process.env.PORT || 3000;
 
@@ -19,6 +20,8 @@ const auth=require('./routes/auth');
 app.use('/api/auth', auth);
 const projects=require('./routes/projects');
 app.use('/api/projects', projects);
+const tasks=require('./routes/tasks');
+app.use('/api/tasks', tasks);
 
 
 
