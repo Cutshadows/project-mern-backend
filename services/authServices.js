@@ -48,7 +48,7 @@ exports.authUser=async(req, res)=>{
 //Get user authenticated
 exports.authenticatedUser=async(req, res)=>{
     try {
-        const users=await User.findById(req.user.id);
+        const users=await User.findById(req.user.id).select('-password');
         res.json({
             users
         });

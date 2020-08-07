@@ -47,7 +47,7 @@ exports.createUsers=async (req, res)=>{
       });
 
      //mensaje de confirmacion
-    /*   res.status(200).send({
+    /*   res.status(200);.send({
        msg: 'Usuario creado correctamente'
       }); */
       
