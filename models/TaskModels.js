@@ -1,7 +1,7 @@
 const mongoose=require('mongoose');
 
 const TaskSchema=mongoose.Schema({
-    nameTask:{
+    taskName:{
         type:String,
         required: true,
         trim:true

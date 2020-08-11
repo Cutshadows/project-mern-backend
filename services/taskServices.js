@@ -27,14 +27,13 @@ exports.taskCreate=async(req, res)=>{
         await task.save();
         res.json({task});
     } catch (error) {
-        console.log(error);
         res.status(500).send("Hubo un error");
     }
 }
 
 exports.getTasks=async(req, res)=>{
     try {
-        const {project}=req.body;
+        const {project}=req.query;
         const existProject=await ProjectModel.findById(project);
         if(!existProject){
             res.status(404).json({msg:'Proyecto no encontrado'});
@@ -46,20 +45,19 @@ exports.getTasks=async(req, res)=>{
         }
 
         //Obtener tareas
-        const tasks=await TaskModels.find({project});
+        const tasks=await TaskModels.find({project}).sort({createDate: -1});
         res.status(200).json({
             tasks
         });
 
     } catch (error) {
-        console.log(error);
         res.status(500).send('Hubo un error en el servidor');
     }
 }
 
 exports.updateTask=async(req, res)=>{
     try {
-        const {project, nameTask, status}=req.body;
+        const {project, taskName, status}=req.body;
         //si la tarea existe o no
         let taskExist=await TaskModels.findById(req.params.id);
         if(!taskExist){
@@ -75,19 +73,18 @@ exports.updateTask=async(req, res)=>{
 
         //crear un objeto con la nueva informacion
         const newTask={};
-        if(nameTask)newTask.nameTask=nameTask;
-        if(status)newTask.status=status;
+        newTask.taskName=taskName;
+        newTask.status=status;
         //Guardar la tarea
         task=await TaskModels.findOneAndUpdate({_id:req.params.id}, newTask, {new:true});
         res.json({task});
     } catch (error) {
-        console.log(error);
         res.status(500).send("Hubo un error");
     }
 }
 exports.deleteTask=async(req, res)=>{
     try {
-        const {project, nameTask, status}=req.body;
+        const {project}=req.query;
         //si la tarea existe o no
         let taskExist=await TaskModels.findById(req.params.id);
         if(!taskExist){
@@ -105,7 +102,6 @@ exports.deleteTask=async(req, res)=>{
         res.status(200).json({msg:'Tarea eliminada con exito'});
 
     } catch (error) {
-        console.log(error);
         res.status(500).send("Hubo un error");
 
     }

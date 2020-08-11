@@ -22,7 +22,6 @@ exports.projectServices=async(req, res)=>{
         res.json(project);
         
     } catch (error) {
-        console.log(error)
         res.status(500).send('Hubo un error en el servidor');
     }
 }
@@ -33,7 +32,6 @@ exports.getProjects=async (req, res)=>{
         const projects=await ProjectModel.find({author:req.user.id}).sort({createDate:-1});
         res.json({projects});
     } catch (error) {
-        console.log(error);
         res.status(500).send('Hubo un error en el servidor');
     }
 }
@@ -69,13 +67,10 @@ exports.updateProject=async(req, res)=>{
             return res.status(401).json({msg:'No Autorizado'});
         }
 
-        console.log(req.params.id);
-
         //actualizar
         project=await ProjectModel.findByIdAndUpdate({_id:req.params.id}, {$set:newProject}, {new: true});
         res.json({project});
     } catch (error) {
-        console.log(error);
         res.status(500).send('Error en el servidor');
     }
 }
@@ -93,12 +88,10 @@ exports.deleteProject=async (req, res)=>{
             return res.status(401).json({msg:'No Autorizado'});
         }
 
-        console.log(req.params.id);
         await ProjectModel.findOneAndRemove({_id: req.params.id});
         res.json({msg:'Delete project'})
 
     } catch (error) {
-        console.log(error);
         res.status(500).send('Error en el servidor');
     }
 }

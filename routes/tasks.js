@@ -9,7 +9,7 @@ const auth=require('../middleware/authentication');
 router.post('/',
     auth,
     [
-        check('nameTask', 'El nombre de la tarea es obligatorio').not().isEmpty(),
+        check('taskName', 'El nombre de la tarea es obligatorio').not().isEmpty(),
         check('project', 'El proyecto es obligatorio').not().isEmpty()
     ],
     taskServices.taskCreate
