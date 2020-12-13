@@ -1,6 +1,7 @@
 const mongoose=require("mongoose");
 const {config}=require('../config/index.js');
 const connectDB=async()=>{
+    console.log(`mongodb://${config.dbHost}:${config.dbPort}/${config.dbName}`);
     try{
         await mongoose.connect(`mongodb://${config.dbHost}:${config.dbPort}/${config.dbName}`, {
             useNewUrlParser:true,
